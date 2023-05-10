@@ -1,7 +1,7 @@
 <template>
-  <div class="modal" v-if="show" :style="backgroundImageStyle">
+  <div class="modal" v-if="show">
     <Header :showModal="show" />
-
+    <div class="modal-background"  :style="{ backgroundImage: `url(${photo.urls.regular})`, filter: 'grayscale(100%)', backgroundSize: '100% 80%', backgroundRepeat: 'no-repeat' }"></div>
     <div class="modal-content">
       <div class="modal-title">
         <div class="autor">
@@ -43,6 +43,7 @@ export default {
   data() {
     return {
       show: false,
+      isSmallScreen: false,
     }
   },
   props: {
@@ -67,19 +68,7 @@ export default {
     }
   },
   components: { Header },
-  computed: {
-    backgroundImageStyle() {
-      return {
 
-
-        background: `linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${this.photo.urls.regular}) center top no-repeat !important`,
-        backgroundSize: "100% auto",
-        backgroundPosition: "center -400px",
-
-
-      }
-    },
-  },
 };
 </script>
   
@@ -87,8 +76,17 @@ export default {
 .scale {
   position: absolute;
   left: 1630px;
-top: 901px;
+  top: 901px;
 }
+
+.modal-background {
+  width: 1920px;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  backdrop-filter: blur(4px);
+}
+
 .modal-close {
   position: relative;
   top: 10px;
@@ -101,7 +99,7 @@ top: 901px;
   align-items: center;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.5)f;
+  
   font-size: 24px;
   font-weight: bold;
 }
@@ -118,6 +116,7 @@ top: 901px;
   width: 100%;
   height: 100%;
   overflow-x: auto;
+  background-color: #F2F2F2;
 }
 
 .modal-content {
@@ -222,7 +221,9 @@ p {
 
     width: 335px;
   }
-
+  .modal-background {
+    display: none;
+  }
   .photo {
     width: 333px;
     height: 227px;
@@ -239,6 +240,7 @@ p {
 
     font-size: 18px;
     line-height: 16px;
+    color: #000;
   }
 
   .rectangle-favourite {
@@ -275,7 +277,9 @@ p {
   }
 
   .modal {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1)), center top no-repeat;
+    background: white;
+    width: 375px;
+    overflow: hidden;
   }
 
 }</style>
